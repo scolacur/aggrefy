@@ -18,13 +18,6 @@ app.factory('UserFactory', function($http){
 		});
 	};
 
-	// User.getStores = function (id) {
-	// 	return $http.get('/api/stores?user=' + id)
-	// 	.then(function(response){
-	// 		return response.data;
-	// 	});
-	// };
-
 	User.edit = function (id, props) {
 		return $http.put('/api/users/' + id, props)
 		.then(function(response){

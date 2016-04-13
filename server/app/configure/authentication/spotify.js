@@ -7,50 +7,48 @@ var UserModel = mongoose.model('User');
 
 module.exports = function (app) {
 
-    var spotifyConfig = app.getValue('env').SPOTIFY;
+	var spotifyConfig = app.getValue('env').SPOTIFY;
 
-    var spotifyCredentials = {
-        clientID: spotifyConfig.clientID,
-        clientSecret: spotifyConfig.clientSecret,
-        callbackURL: spotifyConfig.callbackURL
-    };
-		console.log(spotifyCredentials);
-    var verifyCallback = function (accessToken, refreshToken, profile, done) {
+	var spotifyCredentials = {
+		clientID: spotifyConfig.clientID,
+		clientSecret: spotifyConfig.clientSecret,
+		callbackURL: spotifyConfig.callbackURL
+	};
 
-        UserModel.findOne({ 'spotifyId': profile.id }).exec()
-            .then(function (user) {
-                if (user) {
-                    return user;
-                } else {
-                    return UserModel.create({
-                        spotify: {
-                            id: profile.id,
-                        },
-												email: profile.emails[0].value
-                    });
-                }
-            }).then(function (userToLogin) {
-                done(null, userToLogin);
-            }, function (err) {
-                console.error('Error creating user from Spotify authentication', err);
-                done(err);
-            });
+	var verifyCallback = function (accessToken, refreshToken, profile, done) {
+		console.log(profile);
+		UserModel.findOne({ 'spotify.username': profile.id }).exec()
+		.then(function (user) {
+			if (user) {
+				return user;
+			} else {
+				return UserModel.create({
+					spotify: {
+						username: profile.id,
+					},
+					email: profile.emails[0].value
+				});
+			}
+		}).then(function (userToLogin) {
+			console.log(userToLogin);
+			done(null, userToLogin);
+		}, function (err) {
+			console.error('Error creating user from Spotify authentication', err);
+			done(err);
+		});
+	};
 
-    };
+	passport.use(new SpotifyStrategy(spotifyCredentials, verifyCallback));
 
-    passport.use(new SpotifyStrategy(spotifyCredentials, verifyCallback));
+	app.get('/auth/spotify', passport.authenticate('spotify', {
+		scope: [
+			'user-read-email',
+			'user-read-private'
+		]
+	}));
 
-    app.get('/auth/spotify', passport.authenticate('spotify', {
-        scope: [
-					'user-read-email',
-					'user-read-private'
-        ]
-    }));
-
-    app.get('/auth/spotify/callback',
-        passport.authenticate('spotify',
-				{failureRedirect: '/login' }),
-        function (req, res) {
-            res.redirect('/');
-        });
+	app.get('/auth/spotify/callback',
+		passport.authenticate('spotify', {failureRedirect: '/login' }), function (req, res) {
+			res.redirect('/');
+		});
 };

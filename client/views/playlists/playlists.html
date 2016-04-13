@@ -1,6 +1,8 @@
 <div id="playlists">
-	<p class="playlists-header">My playlists</p>
-	<div>
-			<oauth-button provider-name="Spotify"></oauth-button>
+	<div class="header">
+		<p>My Playlists</p>
 	</div>
+	<ul class="playlist-list">
+		<li ng-repeat="playlist in playlists">{{playlist}}</li>
+	</ul>
 </div>
