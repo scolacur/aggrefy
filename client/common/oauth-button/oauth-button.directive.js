@@ -4,7 +4,7 @@ app.directive('oauthButton', function () {
 			providerName: '@'
 		},
 		restrict: 'E',
-		templateUrl: '/common/oauth-button/oauth-button.html',
-		controller: 'LoginCtrl'
+		templateUrl: '/common/oauth-button/oauth-button.html'
+		// controller: 'LoginCtrl'
 	};
 });

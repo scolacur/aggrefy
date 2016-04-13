@@ -7,14 +7,14 @@ var UserModel = mongoose.model('User');
 
 module.exports = function (app) {
 
-    var spotifyConfig = app.getValue('env').GOOGLE;
+    var spotifyConfig = app.getValue('env').SPOTIFY;
 
     var spotifyCredentials = {
         clientID: spotifyConfig.clientID,
         clientSecret: spotifyConfig.clientSecret,
         callbackURL: spotifyConfig.callbackURL
     };
-
+		console.log(spotifyCredentials);
     var verifyCallback = function (accessToken, refreshToken, profile, done) {
 
         UserModel.findOne({ 'spotifyId': profile.id }).exec()
@@ -45,10 +45,11 @@ module.exports = function (app) {
 					'user-read-email',
 					'user-read-private'
         ]
-    }), function(){});
+    }));
 
     app.get('/auth/spotify/callback',
-        passport.authenticate('spotify', {failureRedirect: '/login' }),
+        passport.authenticate('spotify',
+				{failureRedirect: '/login' }),
         function (req, res) {
             res.redirect('/');
         });
