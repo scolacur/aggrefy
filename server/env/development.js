@@ -15,5 +15,11 @@ module.exports = {
     "clientID": "INSERT_GOOGLE_CLIENTID_HERE",
     "clientSecret": "INSERT_GOOGLE_CLIENT_SECRET_HERE",
     "callbackURL": "INSERT_GOOGLE_CALLBACK_HERE"
-  }
+  },
+	"SPOTIFY": {
+		"clientID": "4e570b33402c491193ce8c5bac670b96",
+		"clientSecret": "4b99f0179eeb4c238ebcfc3ad4882948",
+		"callbackURL": "http://127.0.0.1:8000/auth/spotify/callback"
+	}
+
 };

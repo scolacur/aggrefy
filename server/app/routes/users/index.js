@@ -46,6 +46,7 @@ router.put('/:userId', function (req, res, next) {
 });
 
 router.get('/:userId', function (req, res) {
+	console.log('hitting user route');
 	res.json(_.omit(req.foundUser.toJSON(), ['salt', 'password']));
 });
 

@@ -9,6 +9,7 @@ var UserModel = mongoose.model('User');
 
 var ENABLED_AUTH_STRATEGIES = [
     'local',
+		'spotify'
     //'twitter',
     //'facebook',
     //'google'
@@ -47,8 +48,6 @@ module.exports = function (app) {
     // logged in already.
     app.get('/session', function (req, res) {
         if (req.user) {
-					console.log('about to sanitize');
-					console.log(req.user);
           res.send({user: _.omit(req.user.toJSON(), ['salt', 'password'])});
         } else {
             res.status(401).send('No authenticated user.');

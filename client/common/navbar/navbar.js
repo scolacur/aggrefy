@@ -8,8 +8,8 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
 
             scope.items = [
                 { label: 'Home', state: 'home' },
-                { label: 'About', state: 'about' },
-                { label: 'Members Only', state: 'membersOnly', auth: true }
+                { label: 'About', state: 'about' }
+                // { label: 'My Account', state: 'user', auth: true }
             ];
 
             scope.user = null;
@@ -37,6 +37,7 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
             setUser();
 
             $rootScope.$on(AUTH_EVENTS.loginSuccess, setUser);
+            $rootScope.$on(AUTH_EVENTS.signupSuccess, setUser);
             $rootScope.$on(AUTH_EVENTS.logoutSuccess, removeUser);
             $rootScope.$on(AUTH_EVENTS.sessionTimeout, removeUser);
 
