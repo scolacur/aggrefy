@@ -9,7 +9,7 @@ app.config(function ($stateProvider) {
 			spotifyPlaylists: function ($stateParams, spotifyService) {
 				var userId = $stateParams.userId;
 				console.log('Getting playlists for user:', userId);
-				return spotifyService.getPlaylists(userId);
+				return spotifyService.getPlaylists();
 			}
 		}
 	});

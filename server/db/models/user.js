@@ -30,8 +30,9 @@ var schema = new mongoose.Schema({
 	spotify: {
 		email: String,
 		username: String,
-		token: String,
-		tokenSecret: String
+		accessToken: String,
+		refreshToken: String
+		// tokenSecret: String
 	},
 	facebook: {
 		id: String

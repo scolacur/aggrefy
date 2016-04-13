@@ -59,6 +59,8 @@
     "passport-local": "^1.0.0",
     "passport-spotify": "^0.3.0",
     "passport-twitter": "^1.0.2",
+    "request": "^2.71.0",
+    "requestify": "^0.1.17",
     "run-sequence": "^1.0.2",
     "serve-favicon": "^2.2.0",
     "sinon": "^1.13.0",

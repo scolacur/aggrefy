@@ -1,8 +1,15 @@
 <div id="playlists">
 	<div class="header">
-		<p>My Playlists</p>
+		<h2>My Playlists</h2>
 	</div>
-	<ul class="playlist-list">
-		<li ng-repeat="playlist in playlists">{{playlist}}</li>
-	</ul>
+	<div class="playlist-list">
+		<ul>
+			<li ng-repeat="playlist in playlists">
+				<div class="playlist-data">{{playlist.name}}</div>
+				<div class="playlist-data">Public: {{playlist.public}}</div>
+				<div class="playlist-data">Collaborative: {{playlist.collaborative}}</div>
+				<div class="playlist-data">Number of Tracks: {{playlist.tracks.total}}</div>
+			</li>
+		</ul>
+	</div>
 </div>

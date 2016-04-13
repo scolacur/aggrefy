@@ -3,7 +3,11 @@ var router = require('express').Router();
 module.exports = router;
 var _ = require('lodash');
 
+router.use('/:userId/spotify', require('../spotify'));
+
 var User = require('mongoose').model('User');
+// router.use('/soundcloud', require('./soundcloud'));
+// router.use('/youtube', require('./youtube'));
 
 router.get('/', function (req, res) {
 	User.find()
@@ -76,7 +80,10 @@ router.delete('/:userId', function (req, res, next){
 	}).then(null, next);
 });
 
+
+
 router.param('userId', function (req, res, next, userId) {
+	console.log('userID:', userId);
 	User.findById(userId)
 	.then(function (user) {
 		req.foundUser = user;

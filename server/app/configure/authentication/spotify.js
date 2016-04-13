@@ -17,6 +17,7 @@ module.exports = function (app) {
 
 	var verifyCallback = function (accessToken, refreshToken, profile, done) {
 		console.log(profile);
+		console.log('ACCESS TOKEN: ', accessToken);
 		UserModel.findOne({ 'spotify.username': profile.id }).exec()
 		.then(function (user) {
 			if (user) {
@@ -25,6 +26,8 @@ module.exports = function (app) {
 				return UserModel.create({
 					spotify: {
 						username: profile.id,
+						accessToken: accessToken,
+						refreshToken: refreshToken
 					},
 					email: profile.emails[0].value
 				});
@@ -43,7 +46,9 @@ module.exports = function (app) {
 	app.get('/auth/spotify', passport.authenticate('spotify', {
 		scope: [
 			'user-read-email',
-			'user-read-private'
+			'user-read-private',
+			'playlist-read-private',
+			'playlist-read-collaborative'
 		]
 	}));
 
